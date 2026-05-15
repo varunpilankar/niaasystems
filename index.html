@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NIAA Systems — Cloud-native infrastructure, redefined. Launching soon from Mumbai, India.">
+  <title>NIAA Systems — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:    #FFFFFF;
+      --black:    #0A0A0A;
+      --soft:     #F5F4F1;
+      --border:   #E4E2DC;
+      --muted:    #898983;
+      --omnicora: #0D2645;
+      --opencora: #0C3320;
+      --omni-tint:#A8C4E0;
+      --open-tint:#8EC4A0;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity: 0;
+      z-index: 0;
+      animation: gridIn 1.6s ease forwards 0.2s;
+    }
+    @keyframes gridIn { to { opacity: 0.45; } }
+
+    .dot-accent {
+      position: fixed;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,38,69,0.055) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      z-index: 0;
+      animation: floatDot 10s ease-in-out infinite;
+    }
+    @keyframes floatDot {
+      0%,100% { transform: translate(0,0); }
+      50%      { transform: translate(-24px, 24px); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.15s;
+    }
+    .logo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .logo span { color: var(--muted); font-weight: 400; }
+
+    .header-badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.63rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.8rem 0.3rem 0.55rem;
+      border-radius: 100px;
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #2A9D5C; flex-shrink: 0;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.35; transform: scale(0.7); }
+    }
+
+    /* Hero */
+    .hero {
+      flex: 1;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 5.5rem 0 3.5rem;
+    }
+
+    .eyebrow {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.64rem; font-weight: 700;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.3s;
+    }
+    .eyebrow::before {
+      content: ''; display: block;
+      width: 2.25rem; height: 1px;
+      background: var(--muted); flex-shrink: 0;
+    }
+
+    h1.headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.8rem, 8.5vw, 7.2rem);
+      font-weight: 300; line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.42s;
+    }
+    h1.headline em { font-style: italic; color: var(--muted); }
+
+    .hero-body {
+      max-width: 500px;
+      font-size: 0.94rem; line-height: 1.82;
+      color: #5A5A56; margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.54s;
+    }
+
+    /* Brand cards */
+    .brands {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.65s;
+    }
+    .brand-card {
+      background: var(--white);
+      padding: 2.25rem 2.5rem;
+      transition: background 0.25s ease;
+    }
+    .brand-card:hover { background: var(--soft); }
+
+    .brand-label {
+      display: inline-flex; align-items: center;
+      font-size: 0.59rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 0.26rem 0.65rem; border-radius: 2px;
+      margin-bottom: 1.4rem;
+    }
+    .brand-label.omni { background: var(--omnicora); color: var(--omni-tint); }
+    .brand-label.open { background: var(--opencora); color: var(--open-tint); }
+
+    .brand-name {
+      font-size: 1.35rem; font-weight: 700;
+      letter-spacing: 0.04em; margin-bottom: 0.8rem;
+    }
+    .brand-desc {
+      font-size: 0.82rem; line-height: 1.76;
+      color: var(--muted);
+    }
+    .brand-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.6rem;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: #BBBBB6;
+    }
+    .brand-cta svg {
+      width: 10px; height: 10px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .brand-card:hover .brand-cta { color: var(--muted); }
+    .brand-card:hover .brand-cta svg { transform: translateX(3px); }
+
+    /* Notify */
+    .notify {
+      margin-bottom: 5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.77s;
+    }
+    .notify-label {
+      font-size: 0.64rem; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .notify-row {
+      display: flex; max-width: 420px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .notify-row:focus-within { border-color: #AAAAAA; }
+
+    .notify-input {
+      flex: 1; border: none; outline: none;
+      padding: 0.9rem 1.2rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.82rem; background: transparent;
+      color: var(--black); min-width: 0;
+      transition: background 0.2s;
+    }
+    .notify-input::placeholder { color: #C8C8C4; }
+    .notify-input:focus { background: var(--soft); }
+
+    .notify-btn {
+      background: var(--black); color: var(--white);
+      border: none; padding: 0.9rem 1.4rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .notify-btn:hover { background: #1E1E1E; }
+
+    .notify-sub { font-size: 0.67rem; color: #C0C0BB; margin-top: 0.65rem; }
+    .notify-success {
+      display: none; font-size: 0.82rem;
+      color: var(--opencora); font-weight: 500;
+      padding: 0.9rem 0;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      display: flex; justify-content: space-between; align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.9s;
+    }
+    .footer-copy { font-size: 0.67rem; color: var(--muted); letter-spacing: 0.06em; }
+    .footer-links { display: flex; gap: 1.6rem; }
+    .footer-links a {
+      font-size: 0.67rem; font-weight: 600;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 680px) {
+      .container { padding: 0 1.5rem; }
+      .brands { grid-template-columns: 1fr; }
+      .brand-card { padding: 1.75rem 1.75rem; }
+      h1.headline { font-size: clamp(3rem, 13vw, 4.5rem); }
+      footer { flex-direction: column; gap: 1.1rem; align-items: flex-start; }
+      .notify-row { max-width: 100%; }
+    }
+    @media (max-width: 400px) {
+      .header-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="dot-accent" aria-hidden="true"></div>
+
+<div class="container">
+
+  <header>
+    <div class="logo">NIAA <span>Systems</span></div>
+    <div class="header-badge">
+      <span class="pulse-dot"></span>
+      In Development
+    </div>
+  </header>
+
+  <main class="hero">
+
+    <div class="eyebrow">Something is being built</div>
+
+    <h1 class="headline">
+      Cloud&#8209;native<br>
+      <em>infrastructure,</em><br>
+      redefined.
+    </h1>
+
+    <p class="hero-body">
+      NIAA Systems is the parent entity behind two complementary brands — bringing CNCF-certified managed services and open-source innovation to organisations building on modern infrastructure.
+    </p>
+
+    <div class="brands" role="list" aria-label="Brands">
+      <div class="brand-card" role="listitem">
+        <div class="brand-label omni">KCSP · KCNTP Partner</div>
+        <div class="brand-name">OMNICORA</div>
+        <p class="brand-desc">CNCF-certified cloud-native consulting and managed services. Kubernetes operations, DevOps transformation, and SRE-grade reliability — for startups, SMEs, and enterprise teams.</p>
+        <div class="brand-cta">
+          Certified Services
+          <svg viewBox="0 0 10 10" aria-hidden="true"><polyline points="3,2 7,5 3,8"/></svg>
+        </div>
+      </div>
+
+      <div class="brand-card" role="listitem">
+        <div class="brand-label open">Open Source</div>
+        <div class="brand-name">OPENCORA</div>
+        <p class="brand-desc">Upstream contributions to Canonical, Red Hat, SUSE, and Proxmox. Scripts, tools, hardware projects, and R&D — developed in the open and commercialised on our own terms.</p>
+        <div class="brand-cta">
+          Open by Design
+          <svg viewBox="0 0 10 10" aria-hidden="true"><polyline points="3,2 7,5 3,8"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="notify">
+      <div class="notify-label">Get notified at launch</div>
+      <div class="notify-row" id="notifyRow">
+        <input
+          class="notify-input" id="emailInput"
+          type="email" placeholder="your@email.com"
+          aria-label="Email address" autocomplete="email"
+        >
+        <button class="notify-btn" id="notifyBtn">Notify Me</button>
+      </div>
+      <div class="notify-success" id="notifySuccess" role="status">✓ Noted — we'll be in touch.</div>
+      <p class="notify-sub">No spam. One email when we launch.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-copy">© 2025–2026 NIAA Systems Pvt. Ltd. · Mumbai, India</div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="mailto:hello@niaasystems.com">Contact</a>
+      <a href="https://github.com/niaasystems" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://linkedin.com/company/niaasystems" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var btn   = document.getElementById('notifyBtn');
+    var input = document.getElementById('emailInput');
+    var row   = document.getElementById('notifyRow');
+    var ok    = document.getElementById('notifySuccess');
+
+    function isEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+    }
+
+    function submit() {
+      if (!isEmail(input.value)) {
+        input.style.outline = '1.5px solid #E24B4A';
+        input.focus();
+        setTimeout(function () { input.style.outline = ''; }, 1800);
+        return;
+      }
+      row.style.transition = 'opacity 0.3s';
+      row.style.opacity = '0';
+      setTimeout(function () {
+        row.style.display = 'none';
+        ok.style.display = 'block';
+      }, 300);
+    }
+
+    btn.addEventListener('click', submit);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') submit();
+    });
+  })();
+</script>
+
+</body>
+</html>
